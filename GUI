@@ -1,0 +1,151 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+
+public class GUI implements ActionListener {
+    private static JLabel title;
+    private static JLabel name;
+    private static JTextField nameText;
+    private static JLabel date;
+    private static JTextField dateText;
+    private static JLabel location;
+    private static JTextField locText;
+    private static JLabel problem;
+    private static JTextArea description;
+    private static JLabel urgent;
+    private static JCheckBox urgentBox;
+    private static JButton submit;
+    private static JLabel nameExample;
+    private static JLabel dateExample;
+    private static JLabel locationExample;
+    private String Name;
+    private String Date;
+    private String Location;
+    private String Problem;
+    private Boolean Urgent;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+
+        panel.setLayout(null);
+
+        title = new JLabel("Technical Support Ticket");
+        title.setBounds(130, 20, 150, 25);
+        panel.add(title);
+
+        name = new JLabel("Full Name:");
+        name.setBounds(60, 100, 150, 25);
+        panel.add(name);
+
+        nameText = new JTextField();
+        nameText.setBounds(120, 100, 165, 25);
+        panel.add(nameText);
+
+        nameExample = new JLabel("Ex: John Doe");
+        nameExample.setBounds(300,100,150,25);
+        panel.add(nameExample);
+
+        date = new JLabel("Date:");
+        date.setBounds(88, 130, 150, 25);
+        panel.add(date);
+
+        dateText = new JTextField();
+        dateText.setBounds(120, 130, 165, 25);
+        panel.add(dateText);
+
+        dateExample = new JLabel("MM/DD/YYYY");
+        dateExample.setBounds(300,130,150,25);
+        panel.add(dateExample);
+
+        location = new JLabel("Location:");
+        location.setBounds(65, 160, 150, 25);
+        panel.add(location);
+
+        locationExample = new JLabel("Ex: RM 103");
+        locationExample.setBounds(300,160,150,25);
+        panel.add(locationExample);
+
+        locText = new JTextField();
+        locText.setBounds(120, 160, 165, 25);
+        panel.add(locText);
+
+        problem = new JLabel("Description:");
+        problem.setBounds(50, 185, 150, 25);
+        panel.add(problem);
+
+        description = new JTextArea();
+        description.setBounds(120, 193, 200, 50);
+        panel.add(description);
+
+        urgent = new JLabel("Is this problem Urgent?");
+        urgent.setBounds(50, 260, 150, 25);
+        panel.add(urgent);
+
+        urgentBox = new JCheckBox();
+        urgentBox.setBounds(190, 263, 20, 20);
+        panel.add(urgentBox);
+
+        submit = new JButton("Submit");
+        submit.setBounds(150, 350, 100, 30);
+        panel.add(submit);
+
+        submit.addActionListener(new GUI());
+
+
+        frame.setVisible(true);
+
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String urgentfilename;
+        //input
+        Name = nameText.getText();
+        Date = dateText.getText();
+        Location = locText.getText();
+        Problem = description.getText();
+        Urgent = urgentBox.isSelected();
+
+        System.out.println(Name);
+        System.out.println(Date);
+        System.out.println(Location);
+        System.out.println(Problem);
+        System.out.println(Urgent);
+
+        if(urgentBox.isSelected()){
+            urgentfilename= "URGENT"+" "+Name;
+        }else{
+            urgentfilename=Name;
+        }
+
+        //file
+        String filename = urgentfilename;
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(filename);
+        } catch (FileNotFoundException s) {
+            s.printStackTrace();
+        }
+
+        //file information
+        writer.println(name.getText()+Name);
+        writer.println(date.getText() + Date);
+        writer.println(location.getText()+Location);
+        writer.println(problem.getText()+Problem);
+        //file close
+        writer.close();
+
+    }
+
+
+
+}
