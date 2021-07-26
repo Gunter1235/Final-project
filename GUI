@@ -115,11 +115,6 @@ public class GUI implements ActionListener {
         Problem = description.getText();
         Urgent = urgentBox.isSelected();
 
-        System.out.println(Name);
-        System.out.println(Date);
-        System.out.println(Location);
-        System.out.println(Problem);
-        System.out.println(Urgent);
 
         if(urgentBox.isSelected()){
             urgentfilename= "URGENT"+" "+Name;
