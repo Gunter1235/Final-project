@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 
 
 public class GUI implements ActionListener {
-    private static JLabel title;
     private static JLabel name;
     private static JTextField nameText;
     private static JLabel date;
@@ -15,17 +14,8 @@ public class GUI implements ActionListener {
     private static JTextField locText;
     private static JLabel problem;
     private static JTextArea description;
-    private static JLabel urgent;
     private static JCheckBox urgentBox;
-    private static JButton submit;
-    private static JLabel nameExample;
-    private static JLabel dateExample;
-    private static JLabel locationExample;
-    private String Name;
-    private String Date;
-    private String Location;
-    private String Problem;
-    private Boolean Urgent;
+    private static JLabel Submitted;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
@@ -37,7 +27,7 @@ public class GUI implements ActionListener {
 
         panel.setLayout(null);
 
-        title = new JLabel("Technical Support Ticket");
+        JLabel title = new JLabel("Technical Support Ticket");
         title.setBounds(130, 20, 150, 25);
         panel.add(title);
 
@@ -49,7 +39,7 @@ public class GUI implements ActionListener {
         nameText.setBounds(120, 100, 165, 25);
         panel.add(nameText);
 
-        nameExample = new JLabel("Ex: John Doe");
+        JLabel nameExample = new JLabel("Ex: John Doe");
         nameExample.setBounds(300,100,150,25);
         panel.add(nameExample);
 
@@ -61,7 +51,7 @@ public class GUI implements ActionListener {
         dateText.setBounds(120, 130, 165, 25);
         panel.add(dateText);
 
-        dateExample = new JLabel("MM/DD/YYYY");
+        JLabel dateExample = new JLabel("MM/DD/YYYY");
         dateExample.setBounds(300,130,150,25);
         panel.add(dateExample);
 
@@ -69,7 +59,7 @@ public class GUI implements ActionListener {
         location.setBounds(65, 160, 150, 25);
         panel.add(location);
 
-        locationExample = new JLabel("Ex: RM 103");
+        JLabel locationExample = new JLabel("Ex: RM 103");
         locationExample.setBounds(300,160,150,25);
         panel.add(locationExample);
 
@@ -85,7 +75,7 @@ public class GUI implements ActionListener {
         description.setBounds(120, 193, 200, 50);
         panel.add(description);
 
-        urgent = new JLabel("Is this problem Urgent?");
+        JLabel urgent = new JLabel("Is this problem Urgent?");
         urgent.setBounds(50, 260, 150, 25);
         panel.add(urgent);
 
@@ -93,9 +83,13 @@ public class GUI implements ActionListener {
         urgentBox.setBounds(190, 263, 20, 20);
         panel.add(urgentBox);
 
-        submit = new JButton("Submit");
+        JButton submit = new JButton("Submit");
         submit.setBounds(150, 350, 100, 30);
         panel.add(submit);
+
+        Submitted = new JLabel("");
+        Submitted.setBounds(170,400,100,20);
+        panel.add(Submitted);
 
         submit.addActionListener(new GUI());
 
@@ -107,23 +101,23 @@ public class GUI implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String urgentfilename;
+        String urgentFileName;
         //input
-        Name = nameText.getText();
-        Date = dateText.getText();
-        Location = locText.getText();
-        Problem = description.getText();
-        Urgent = urgentBox.isSelected();
+        String Name = nameText.getText();
+        String Date = dateText.getText();
+        String Location = locText.getText();
+        String Problem = description.getText();
+        Submitted.setText("Submitted!");
 
 
         if(urgentBox.isSelected()){
-            urgentfilename= "URGENT"+" "+Name;
+            urgentFileName= "URGENT"+" "+ Name;
         }else{
-            urgentfilename=Name;
+            urgentFileName= Name;
         }
 
         //file
-        String filename = urgentfilename;
+        String filename = urgentFileName;
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(filename);
@@ -132,7 +126,7 @@ public class GUI implements ActionListener {
         }
 
         //file information
-        writer.println(name.getText()+Name);
+        writer.println(name.getText()+ Name);
         writer.println(date.getText() + Date);
         writer.println(location.getText()+Location);
         writer.println(problem.getText()+Problem);
