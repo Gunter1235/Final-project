@@ -116,7 +116,7 @@ public class GUI implements ActionListener {
             urgentFileName= Name;
         }
 
-        //file
+        //file creation
         String filename = urgentFileName;
         PrintWriter writer = null;
         try {
